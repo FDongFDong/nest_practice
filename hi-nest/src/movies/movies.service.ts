@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateMovieDto } from 'src/dto/create-movie.dto';
+import { UpdateMovieDto } from 'src/dto/update-movie.dto';
 import { Movie } from 'src/entities/movies';
 
 @Injectable()
@@ -9,7 +10,7 @@ export class MoviesService {
   getAll(): Movie[] {
     return this.movies;
   }
-  //nest.js는 타입을 받아서 넘겨줄 때 자동으로 타입도 변환시켜준다. Transform을 사용하기 때문이다.
+  //nest.js는 타입을 받아서 넘겨줄 때 자동으로 타입도 변환시켜준다.
   getOne(id: number): Movie {
     const movie = this.movies.find((movie) => movie.id === id);
     if (!movie) {
@@ -24,7 +25,7 @@ export class MoviesService {
   create(movieData: CreateMovieDto) {
     this.movies.push({ id: this.movies.length + 1, ...movieData });
   }
-  update(id: bynvwe, updateData) {
+  update(id: number, updateData: UpdateMovieDto) {
     const movie = this.getOne(id);
     this.deleteOne(id);
     this.movies.push({ ...movie, ...updateData }); // DB를 쓰면 달라진다.
